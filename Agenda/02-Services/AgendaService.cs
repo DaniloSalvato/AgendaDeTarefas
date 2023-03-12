@@ -34,6 +34,17 @@ namespace Agenda._02_Services
             foreach (var item in agendaRepository)
             {
                 listTarefas = tarefas.Where(x => x.AgendaId == item.Id).ToList();
+                foreach (var tarefaAtiva in listTarefas)    
+                {
+                    if (tarefaAtiva.DataTarefa > DateTime.Now)
+                    {
+                        tarefaAtiva.StatusTarefa = "Em Aberto";
+                    }
+                    else
+                    {
+                        tarefaAtiva.StatusTarefa = "Em Atraso";
+                    }
+                }
                 var agenda = new AgendaModel()
                 {
                     Id = item.Id,
@@ -47,6 +58,34 @@ namespace Agenda._02_Services
             return listAgendas;
         }
 
+        public async Task<AgendaModel> GetAgenda(int agendaId)
+        {
+            var agenda = await _agendaRepository.GetAgendaById(agendaId);
+            var tarefas = await _tarefaService.GetAllTarefas();
+
+            var listTarefas = tarefas.Where(x => x.AgendaId == agenda.Id).ToList();
+            foreach (var tarefaAtiva in listTarefas)
+            {
+                if (tarefaAtiva.DataTarefa > DateTime.Now)
+                {
+                    tarefaAtiva.StatusTarefa = "Em Aberto";
+                }
+                else
+                {
+                    tarefaAtiva.StatusTarefa = "Em Atraso";
+                }
+            }
+            var agendaCompleta = new AgendaModel()
+            {
+                Id = agenda.Id,
+                NomeAgenda = agenda.NomeAgenda,
+                CriadorAgenda = agenda.CriadorAgenda,
+                DataCriacao = agenda.DataCriacao,
+                Tarefas = listTarefas
+            };
+            return agendaCompleta;
+        }
+
         public async Task<int> NovaAgenda(NovaAgendaModel model)
         {
             var novaAgenda = new NovaAgendaModel()
@@ -58,6 +97,28 @@ namespace Agenda._02_Services
             var response = await _agendaRepository.NovaAgenda(novaAgenda);
 
             return response;
+        }
+
+        public async Task<int> AtualizarAgenda(AtualizarAgendaModel model)
+        {
+            var atualizaAgenda = new AtualizarAgendaModel()
+            {
+                Id = model.Id,
+                NomeAgenda = model.NomeAgenda,
+            };
+
+            return await _agendaRepository.AtualizaAgenda(atualizaAgenda);
+        }
+
+        public async Task<int> DesabilitaAgendas(DesabilitaAgendaModel model)
+        {
+            var desabilitaAgenda = new DesabilitaAgendaModel()
+            {
+                Id = model.Id,
+                Ativo = model.Ativo,
+            };         
+
+            return await _agendaRepository.DesabilitaAgendas(desabilitaAgenda);
         }
     }
 }

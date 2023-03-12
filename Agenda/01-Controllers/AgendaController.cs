@@ -35,6 +35,22 @@ namespace Agenda._01_Controllers
             }  
         }
 
+        [HttpPost("SearchAgenda")]
+        [ProducesResponseType(typeof(AgendaModel), 200)]
+        [ProducesResponseType(typeof(object), 400)]
+        public async Task<IActionResult> SearchAgenda(SingleAgendaModel agendaId)
+        {
+            try
+            {
+                var response = await _agendaService.GetAgenda(agendaId.Id);
+                return StatusCode(StatusCodes.Status200OK, response);
+            }
+            catch (Exception ex)
+            {
+                throw;
+            }
+        }
+
         [HttpPost("InsertAgendas")]
         [ProducesResponseType(typeof(int), 200)]
         [ProducesResponseType(typeof(object), 400)]
@@ -46,6 +62,38 @@ namespace Agenda._01_Controllers
                 return StatusCode(StatusCodes.Status200OK, response);
             }
             catch (Exception ex)    
+            {
+                throw;
+            }
+        }
+
+        [HttpPut("AtualizaAgendas")]
+        [ProducesResponseType(typeof(int), 200)]
+        [ProducesResponseType(typeof(object), 400)]
+        public async Task<IActionResult> AtualizaAgenda(AtualizarAgendaModel model)
+        {
+            try
+            {
+                var response = await _agendaService.AtualizarAgenda(model);
+                return StatusCode(StatusCodes.Status200OK, response);
+            }
+            catch (Exception ex)
+            {
+                throw;
+            }
+        }
+
+        [HttpPut("DesativaAgendas")]
+        [ProducesResponseType(typeof(int), 200)]
+        [ProducesResponseType(typeof(object), 400)]
+        public async Task<IActionResult> DesativaAgendas(DesabilitaAgendaModel model)
+        {
+            try
+            {
+                var response = await _agendaService.DesabilitaAgendas(model);
+                return StatusCode(StatusCodes.Status200OK, response);
+            }
+            catch (Exception ex)
             {
                 throw;
             }

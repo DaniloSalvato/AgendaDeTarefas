@@ -32,5 +32,25 @@ namespace Agenda._03_Repositories
                 return result?.Count() > 0 ? result.ToList() : new List<TarefaModel>();
             }
         }
+
+        public async Task<int> NovaTarefa(NovaTarefaModel model)
+        {
+            using (var conn = new SqlConnection(_configuration.GetSection("ConnectionStrings").GetSection("STRING_CONECTION").Value))
+            {
+                var sql = $@" INSERT INTO tarefa (
+                                Descricao,
+                                DataTarefa,
+                                Status,
+                                AgendaId )
+                              VALUES (
+                                @Descricao,
+                                @DataTarefa,
+                                @Status,
+                                @AgendaId)
+                                SELECT CAST(SCOPE_IDENTITY() AS INT)";
+                var result = await conn.QueryAsync<int>(sql.ToString(), model);
+                return result?.Count() > 0 ? result.FirstOrDefault() : new int();
+            }
+        }
     }
 }

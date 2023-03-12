@@ -25,9 +25,29 @@ namespace Agenda._03_Repositories
         {
             using (var conn = new SqlConnection(_configuration.GetSection("ConnectionStrings").GetSection("STRING_CONECTION").Value))
             {
-                var sql = $@" SELECT * FROM agenda AS A WITH (NOLOCK) ORDER BY 1 ASC ";
+                var sql = $@" SELECT * FROM agenda WITH (NOLOCK) WHERE ativo = 1 ORDER BY 1 ASC ";
                 var result = await conn.QueryAsync<AgendaModel>(sql.ToString());
                 return result?.Count() > 0 ? result.ToList() : new List<AgendaModel>();
+            }
+        }
+
+        public async Task<AgendaModel> GetAgenda(AgendaModel model) 
+        {
+            using (var conn = new SqlConnection(_configuration.GetSection("ConnectionStrings").GetSection("STRING_CONECTION").Value))
+            {
+                var sql = $@" SELECT * FROM agenda WITH (NOLOCK) WHERE Id = @Id";
+                var result = await conn.QueryAsync<AgendaModel>(sql.ToString());
+                return result?.Count() > 0 ? result.FirstOrDefault() : new AgendaModel();
+            }
+        }
+
+        public async Task<AgendaModel> GetAgendaById(int id)
+        {
+            using (var conn = new SqlConnection(_configuration.GetSection("ConnectionStrings").GetSection("STRING_CONECTION").Value))
+            {
+                var sql = $@" SELECT * FROM agenda WITH (NOLOCK) WHERE Id = @id";
+                var result = await conn.QueryAsync<AgendaModel>(sql.ToString(), new { id });
+                return result?.Count() > 0 ? result.FirstOrDefault() : new AgendaModel();
             }
         }
 
@@ -38,12 +58,36 @@ namespace Agenda._03_Repositories
                 var sql = $@" INSERT INTO [agenda] (
                                         [NomeAgenda], 
                                         [CriadorAgenda],
-                                        [DataCriacao]
+                                        [DataCriacao],
+                                        [Ativo]
                                        ) VALUES (
                                         @NomeAgenda,
                                         @CriadorAgenda,
-                                        GETDATE()
+                                        GETDATE(),
+                                        1
                                        );SELECT CAST(SCOPE_IDENTITY() AS INT) ";
+                var result = await conn.QueryAsync<int>(sql.ToString(), model);
+                return result?.Count() > 0 ? result.FirstOrDefault() : new int();
+            }
+        }
+
+        public async Task<int> AtualizaAgenda(AtualizarAgendaModel model)
+        {
+            using (var conn = new SqlConnection(_configuration.GetSection("ConnectionStrings").GetSection("STRING_CONECTION").Value))
+            {
+                var sql = $@" UPDATE [agenda] SET NomeAgenda = @NomeAgenda WHERE Id = @Id
+                              SELECT @@ROWCOUNT AS [RowsAffected]";
+                var result = await conn.QueryAsync<int>(sql.ToString(), model);
+                return result?.Count() > 0 ? result.FirstOrDefault() : new int();
+            }
+        }
+
+        public async Task<int> DesabilitaAgendas(DesabilitaAgendaModel model)
+        {
+            using (var conn = new SqlConnection(_configuration.GetSection("ConnectionStrings").GetSection("STRING_CONECTION").Value))
+            {
+                var sql = $@" UPDATE [agenda] SET Ativo = @Ativo WHERE Id = @Id
+                              SELECT @@ROWCOUNT AS [RowsAffected]";
                 var result = await conn.QueryAsync<int>(sql.ToString(), model);
                 return result?.Count() > 0 ? result.FirstOrDefault() : new int();
             }

@@ -22,8 +22,31 @@ namespace Agenda._01_Controllers
         [ProducesResponseType(typeof(object), 400)]
         public async Task<IActionResult> SearchScore()
         {
-            var response = await _tarefaService.GetAllTarefas();
-            return StatusCode(StatusCodes.Status200OK, response);
+            try
+            {
+                var response = await _tarefaService.GetAllTarefas();
+                return StatusCode(StatusCodes.Status200OK, response);
+            }
+            catch (System.Exception)
+            {
+                throw;
+            }           
+        }
+
+        [HttpPost("NovaTarefas")]
+        [ProducesResponseType(typeof(int), 200)]
+        [ProducesResponseType(typeof(object), 400)]
+        public async Task<IActionResult> NovaTarefa(NovaTarefaModel model)
+        {
+            try
+            {
+                var response = await _tarefaService.NovaTarefa(model);
+                return StatusCode(StatusCodes.Status200OK, response);
+            }
+            catch (System.Exception)
+            {
+                throw;
+            }
         }
     }
 }
