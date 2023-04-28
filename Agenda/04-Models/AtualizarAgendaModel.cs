@@ -3,6 +3,6 @@
     public class AtualizarAgendaModel
     {
         public int Id { get; set; }
-        public string NomeAgenda { get; set; }   
+        public string NomeAgenda { get; set; }
     }
 }

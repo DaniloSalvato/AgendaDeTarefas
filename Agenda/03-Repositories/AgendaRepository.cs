@@ -2,12 +2,9 @@
 using Agenda._04_Models;
 using Dapper;
 using Microsoft.Extensions.Configuration;
-using System;
 using System.Collections.Generic;
 using System.Data.SqlClient;
 using System.Linq;
-using System.Reflection;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace Agenda._03_Repositories
@@ -31,7 +28,7 @@ namespace Agenda._03_Repositories
             }
         }
 
-        public async Task<AgendaModel> GetAgenda(AgendaModel model) 
+        public async Task<AgendaModel> GetAgenda(AgendaModel model)
         {
             using (var conn = new SqlConnection(_configuration.GetSection("ConnectionStrings").GetSection("STRING_CONECTION").Value))
             {

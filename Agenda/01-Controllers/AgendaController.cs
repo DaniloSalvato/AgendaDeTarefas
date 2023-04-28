@@ -1,5 +1,4 @@
 ﻿using Agenda._02_Services.Interface;
-using Agenda._03_Repositories.Interface;
 using Agenda._04_Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -19,26 +18,26 @@ namespace Agenda._01_Controllers
             _agendaService = agendaService;
         }
 
-        [HttpGet("SearchAgendas")]
+        [HttpGet("ListarAgendas")]
         [ProducesResponseType(typeof(AgendaModel), 200)]
         [ProducesResponseType(typeof(object), 400)]
-        public async Task<IActionResult> SearchAgendas()
+        public async Task<IActionResult> ListarAgendas()
         {
             try
             {
                 var response = await _agendaService.GetAllAgendas();
                 return StatusCode(StatusCodes.Status200OK, response);
             }
-            catch (Exception ex)    
+            catch (Exception ex)
             {
                 throw;
-            }  
+            }
         }
 
-        [HttpPost("SearchAgenda")]
+        [HttpPost("ListarAgenda")]
         [ProducesResponseType(typeof(AgendaModel), 200)]
         [ProducesResponseType(typeof(object), 400)]
-        public async Task<IActionResult> SearchAgenda(SingleAgendaModel agendaId)
+        public async Task<IActionResult> ListarAgenda(SingleAgendaModel agendaId)
         {
             try
             {
@@ -61,7 +60,7 @@ namespace Agenda._01_Controllers
                 var response = await _agendaService.NovaAgenda(model);
                 return StatusCode(StatusCodes.Status200OK, response);
             }
-            catch (Exception ex)    
+            catch (Exception ex)
             {
                 throw;
             }

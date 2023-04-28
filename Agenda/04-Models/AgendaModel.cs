@@ -9,6 +9,6 @@ namespace Agenda._04_Models
         public string NomeAgenda { get; set; }
         public string CriadorAgenda { get; set; }
         public DateTime DataCriacao { get; set; }
-        public List<TarefaModel> Tarefas { get; set; }  
+        public List<TarefaModel> Tarefas { get; set; }
     }
 }

@@ -17,10 +17,10 @@ namespace Agenda._01_Controllers
             _tarefaService = tarefaService;
         }
 
-        [HttpGet("SearchTarefas")]
+        [HttpGet("ListarTarefas")]
         [ProducesResponseType(typeof(AgendaModel), 200)]
         [ProducesResponseType(typeof(object), 400)]
-        public async Task<IActionResult> SearchScore()
+        public async Task<IActionResult> ListarTarefas()
         {
             try
             {
@@ -30,7 +30,7 @@ namespace Agenda._01_Controllers
             catch (System.Exception)
             {
                 throw;
-            }           
+            }
         }
 
         [HttpPost("NovaTarefas")]

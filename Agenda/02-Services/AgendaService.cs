@@ -1,11 +1,9 @@
 ﻿using Agenda._02_Services.Interface;
-using Agenda._03_Repositories;
 using Agenda._03_Repositories.Interface;
 using Agenda._04_Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Security.Cryptography.X509Certificates;
 using System.Threading.Tasks;
 
 namespace Agenda._02_Services
@@ -29,12 +27,12 @@ namespace Agenda._02_Services
             var listTarefas = new List<TarefaModel>();
             var agendaRepository = await _agendaRepository.GetAllAgendas();
             var tarefas = await _tarefaService.GetAllTarefas();
-            
+
 
             foreach (var item in agendaRepository)
             {
                 listTarefas = tarefas.Where(x => x.AgendaId == item.Id).ToList();
-                foreach (var tarefaAtiva in listTarefas)    
+                foreach (var tarefaAtiva in listTarefas)
                 {
                     if (tarefaAtiva.DataTarefa > DateTime.Now)
                     {
@@ -116,7 +114,7 @@ namespace Agenda._02_Services
             {
                 Id = model.Id,
                 Ativo = model.Ativo,
-            };         
+            };
 
             return await _agendaRepository.DesabilitaAgendas(desabilitaAgenda);
         }

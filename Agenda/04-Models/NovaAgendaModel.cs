@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace Agenda._04_Models
+﻿namespace Agenda._04_Models
 {
     public class NovaAgendaModel
     {
