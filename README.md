@@ -71,7 +71,10 @@ Uma API com projeto de agenda genérica que qualquer pessoa possa utilizar para 
 ```
 | Parâmetro   | Tipo       | Descrição                                   |
 | :---------- | :--------- | :------------------------------------------ |
-| `id`      | `string` | **Obrigatório** |
+| `descricao` | `string` | **Obrigatório** |
+| `dataTarefa`| `DateTime` | **Obrigatório** |
+| `Status`    | `Bool` | **Obrigatório** |
+| `agendaId`  | `int` | **Obrigatório** |
 
 #### Cria uma nova tarefa
 
