@@ -9,14 +9,14 @@ Uma API com projeto de agenda genérica que qualquer pessoa possa utilizar para 
 ## Agendas
 
 
-```http
+`http
   GET /api/Agenda/ListarAgendas
-```
+`
 #### Retorna todos os itens
 
-```http
+`http
   POST /api/Agenda/ListarAgenda
-```
+`
 | Parâmetro   | Tipo       | Descrição                           |
 | :---------- | :--------- | :---------------------------------- |
 | `id` | `int` | **Obrigatório** |
@@ -24,9 +24,9 @@ Uma API com projeto de agenda genérica que qualquer pessoa possa utilizar para 
 #### Retorna uma agenda específica.
 
 
-```http
+`http
   POST /api/Agenda/InsetAgendas
-```
+`
 | Parâmetro   | Tipo       | Descrição                           |
 | :---------- | :--------- | :---------------------------------- |
 | `nomeAgenda` | `string` | **Obrigatório** |
@@ -35,9 +35,9 @@ Uma API com projeto de agenda genérica que qualquer pessoa possa utilizar para 
 #### Cria uma agenda nova.
 
 
-```http
+`http
   PUT /api/Agenda/AtualizaAgendas
-```
+`
 | Parâmetro   | Tipo       | Descrição                           |
 | :---------- | :--------- | :---------------------------------- |
 | `id` | `int` | **Obrigatório** |
@@ -46,9 +46,9 @@ Uma API com projeto de agenda genérica que qualquer pessoa possa utilizar para 
 #### Atualiza a agenda específicada
 
 
-```http
+`http
   PUT /api/Agenda/DesativaAgendas
-```
+`
 | Parâmetro   | Tipo       | Descrição                           |
 | :---------- | :--------- | :---------------------------------- |
 | `agendaId` | `int` | **Obrigatório** |
@@ -56,9 +56,9 @@ Uma API com projeto de agenda genérica que qualquer pessoa possa utilizar para 
 #### Normalmente esse campo seria um "DELETE", porém, por motivos de boas praticas apenas é atualizado um bit de apagado para mantermos um históricos das tarefas.
 
 
-```http
+`http
   GET /api/Tarefas/ListarTarefas
-```
+`
 | Parâmetro   | Tipo       | Descrição                                   |
 | :---------- | :--------- | :------------------------------------------ |
 | `id`      | `string` | **Obrigatório** |
@@ -66,9 +66,9 @@ Uma API com projeto de agenda genérica que qualquer pessoa possa utilizar para 
 #### Lista as tarefas de acordo com o id da tarefa
 
 
-```http
+`http
   POST /api/Tarefas/NovaTarefa
-```
+`
 | Parâmetro   | Tipo       | Descrição                                   |
 | :---------- | :--------- | :------------------------------------------ |
 | `descricao` | `string` | **Obrigatório** |
@@ -79,9 +79,9 @@ Uma API com projeto de agenda genérica que qualquer pessoa possa utilizar para 
 #### Cria uma nova tarefa
 
 
-```http
+`http
   POST /api/Tarefas/NovaTarefa
-```
+`
 | Parâmetro   | Tipo       | Descrição                                   |
 | :---------- | :--------- | :------------------------------------------ |
 | `agendaId`  | `int` | **Obrigatório** |
