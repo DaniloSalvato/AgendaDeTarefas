@@ -55,6 +55,7 @@ Uma API com projeto de agenda genérica que qualquer pessoa possa utilizar para 
 
 #### Normalmente esse campo seria um "DELETE", porém, por motivos de boas praticas apenas é atualizado um bit de apagado para mantermos um históricos das tarefas.
 
+## Tarefas
 
 `http
   GET /api/Tarefas/ListarTarefas
