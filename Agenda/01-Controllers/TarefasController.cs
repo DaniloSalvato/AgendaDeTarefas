@@ -20,11 +20,11 @@ namespace Agenda._01_Controllers
         [HttpGet("ListarTarefas")]
         [ProducesResponseType(typeof(AgendaModel), 200)]
         [ProducesResponseType(typeof(object), 400)]
-        public async Task<IActionResult> ListarTarefas()
+        public async Task<IActionResult> ListarTarefas(int agendaId)
         {
             try
             {
-                var response = await _tarefaService.GetAllTarefas();
+                var response = await _tarefaService.GetAllTarefas(agendaId);
                 return StatusCode(StatusCodes.Status200OK, response);
             }
             catch (System.Exception)
@@ -41,6 +41,22 @@ namespace Agenda._01_Controllers
             try
             {
                 var response = await _tarefaService.NovaTarefa(model);
+                return StatusCode(StatusCodes.Status200OK, response);
+            }
+            catch (System.Exception)
+            {
+                throw;
+            }
+        }
+
+        [HttpPut("AtualizarTarefa")]
+        [ProducesResponseType(typeof(int), 200)]
+        [ProducesResponseType(typeof(object), 400)]
+        public async Task<IActionResult> AtualizarTarefa(AtualizarTarefaModel model)
+        {
+            try
+            {
+                var response = await _tarefaService.AtualizarTarefa(model);
                 return StatusCode(StatusCodes.Status200OK, response);
             }
             catch (System.Exception)

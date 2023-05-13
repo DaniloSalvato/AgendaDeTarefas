@@ -26,11 +26,10 @@ namespace Agenda._02_Services
             var listAgendas = new List<AgendaModel>();
             var listTarefas = new List<TarefaModel>();
             var agendaRepository = await _agendaRepository.GetAllAgendas();
-            var tarefas = await _tarefaService.GetAllTarefas();
-
 
             foreach (var item in agendaRepository)
             {
+                var tarefas = await _tarefaService.GetAllTarefas(item.Id);
                 listTarefas = tarefas.Where(x => x.AgendaId == item.Id).ToList();
                 foreach (var tarefaAtiva in listTarefas)
                 {
@@ -59,7 +58,7 @@ namespace Agenda._02_Services
         public async Task<AgendaModel> GetAgenda(int agendaId)
         {
             var agenda = await _agendaRepository.GetAgendaById(agendaId);
-            var tarefas = await _tarefaService.GetAllTarefas();
+            var tarefas = await _tarefaService.GetAllTarefas(agendaId);
 
             var listTarefas = tarefas.Where(x => x.AgendaId == agenda.Id).ToList();
             foreach (var tarefaAtiva in listTarefas)
